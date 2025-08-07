@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Events\SendEmail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class InvoiceCreator extends Component
@@ -34,7 +35,7 @@ class InvoiceCreator extends Component
             'dueDate' => 'required|date|after:invoiceDate',
             'discount' => 'nullable|numeric',
             'tax' => 'nullable|numeric',
-            'client_email' => 'nullable|email',
+            'client_email' => 'required|email',
             'items.*.description' => 'required|string',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.unitPrice' => 'required|numeric|min:0',
@@ -90,6 +91,7 @@ class InvoiceCreator extends Component
     {
         $this->validate();
         $invoice = Invoice::create([
+            'user_id' => Auth::id(),
             'client_name' => $this->clientName,
             'invoice_number' => $this->invoiceNumber,
             'invoice_date' => $this->invoiceDate,
@@ -98,6 +100,7 @@ class InvoiceCreator extends Component
             'discount' => $this->discountAmount,
             'tax' => $this->taxAmount,
             'total' => $this->total,
+            'client_email'  => $this->client_email
         ]);
 
         foreach ($this->items as $item) {
@@ -118,9 +121,7 @@ class InvoiceCreator extends Component
 
         $pdfBinary = $pdf->output();
 
-        if ($this->client_email) {
-            event(new SendEmail($invoice, $this->client_email, $pdfBinary));
-        }
+        event(new SendEmail($invoice, $this->client_email, $pdfBinary));
 
         session()->flash('success', 'Invoice created successfully!');
 
@@ -134,21 +135,3 @@ class InvoiceCreator extends Component
         return view('livewire.invoice-creator');
     }
 }
-
-
-
-    // public function updatedDiscount()
-    // {
-    //     $this->getSubtotalProperty();
-    //     $this->getDiscountAmountProperty();
-    //     $this->getTaxAmountProperty();
-    //     $this->getTotalProperty();
-    // }
-
-    // public function updatedTax()
-    // {
-    //     $this->getSubtotalProperty();
-    //     $this->getDiscountAmountProperty();
-    //     $this->getTaxAmountProperty();
-    //     $this->getTotalProperty();
-    // }

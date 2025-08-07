@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\InvoiceCreator;
+use App\Livewire\InvoiceIndex;
+use App\Livewire\InvoiceShow;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\Password;
 use Illuminate\Support\Facades\Mail;
@@ -24,16 +26,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    Route::prefix('invoice')->group(function () {
+        Route::get('/create', InvoiceCreator::class)->name('invoice_create');
+        Route::get('/{user}/index', InvoiceIndex::class)->name('invoice_index');
+        Route::get('/{invoice}/show', InvoiceShow::class)->name('invoice_show');
+    });
 });
 
 require __DIR__ . '/auth.php';
-
-
-// Route::get('/test-mail', function () {
-//     Mail::raw('This is a test email sent via Mailtrap', function ($message) {
-//         $message->to('test@example.com')
-//             ->subject('Mailtrap Test');
-//     });
-
-//     return 'Email sent!';
-// });

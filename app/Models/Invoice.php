@@ -18,7 +18,8 @@ class Invoice extends Model
         'discount',
         'tax',
         'total',
-
+        'user_id',
+        'client_email',
     ];
 
     public function user()

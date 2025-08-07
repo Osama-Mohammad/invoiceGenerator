@@ -150,7 +150,7 @@
 
         <!-- Client Email -->
         <div>
-            <label class="block mb-1 text-gray-700 font-medium">Client Email (Optional)</label>
+            <label class="block mb-1 text-gray-700 font-medium">Client Email </label>
             <div class="relative">
                 <input type="email" wire:model.defer="client_email" placeholder="Enter client email"
                     class="w-full p-3 pl-10 border rounded-xl focus:ring-2 focus:ring-indigo-400">
