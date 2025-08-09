@@ -25,6 +25,9 @@
                 <flux:navlist.item icon="home" :href="route('invoice_create')"
                     :current="request()->routeIs('invoice_create')" wire:navigate>{{ __('invoice_create') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="home" :href="route('business_create')"
+                    :current="request()->routeIs('business_create')" wire:navigate>{{ __('business_create') }}
+                </flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
@@ -71,7 +74,8 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}
+                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
+                        {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
 

@@ -20,12 +20,18 @@ class Invoice extends Model
         'total',
         'user_id',
         'client_email',
-        'status'
+        'status',
+        'business_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
     }
 
     public function invoiceItems()

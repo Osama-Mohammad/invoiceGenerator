@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\BusinessCreate;
+use App\Livewire\BusinessIndex;
 use App\Livewire\InvoiceCreator;
 use App\Livewire\InvoiceIndex;
 use App\Livewire\InvoiceShow;
@@ -26,6 +28,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    Route::prefix('business')->group(function () {
+        Route::get('/create', BusinessCreate::class)->name('business_create');
+        Route::get('/{user}/index', BusinessIndex::class)->name('business_index');
+    });
 
     Route::prefix('invoice')->group(function () {
         Route::get('/create', InvoiceCreator::class)->name('invoice_create');
