@@ -21,5 +21,5 @@ We also provided a PDF copy for you'r convenience in the attachments:
 Thanks for doing  business with us!
 
 Regards,
-{{ config('app.name') }}
+{{ $senderEmail }}
 @endcomponent

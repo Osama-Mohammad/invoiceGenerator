@@ -20,6 +20,7 @@ class Invoice extends Model
         'total',
         'user_id',
         'client_email',
+        'status'
     ];
 
     public function user()

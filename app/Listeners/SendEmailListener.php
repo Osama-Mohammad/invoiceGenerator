@@ -24,6 +24,10 @@ class SendEmailListener
      */
     public function handle(SendEmail $event): void
     {
-        Mail::to($event->client_email)->send(new InvoiceGeneratedMail($event->invoice, $event->pdfBinary));
+        Mail::to($event->client_email)
+            ->send(
+                (new InvoiceGeneratedMail($event->invoice, $event->pdfBinary, $event->senderEmail))
+                    ->from($event->senderEmail) // from() goes here
+            );
     }
 }

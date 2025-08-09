@@ -16,12 +16,13 @@ class InvoiceGeneratedMail extends Mailable
     public $invoice;
     public $invoiceItems;
     public $pdfBinary;
-
-    public function __construct(Invoice $invoice, string $pdfBinary)
+    public $senderEmail;
+    public function __construct(Invoice $invoice, string $pdfBinary, string $senderEmail)
     {
         $this->invoice = $invoice;
         $this->invoiceItems = $invoice->invoiceItems;
         $this->pdfBinary = $pdfBinary;
+        $this->senderEmail = $senderEmail;
     }
 
     public function build()
@@ -31,6 +32,7 @@ class InvoiceGeneratedMail extends Mailable
             ->markdown('emails.invoices.generated', [
                 'invoice' => $this->invoice,
                 'items' => $this->invoiceItems,
+                'senderEmail' => $this->senderEmail
             ])
             ->attachData(
                 $this->pdfBinary,

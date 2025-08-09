@@ -121,7 +121,7 @@ class InvoiceCreator extends Component
 
         $pdfBinary = $pdf->output();
 
-        event(new SendEmail($invoice, $this->client_email, $pdfBinary));
+        event(new SendEmail($invoice, $this->client_email, $pdfBinary, Auth::user()->email));
 
         session()->flash('success', 'Invoice created successfully!');
 

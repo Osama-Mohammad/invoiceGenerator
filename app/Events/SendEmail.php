@@ -21,11 +21,13 @@ class SendEmail
     public $invoice;
     public $client_email;
     public $pdfBinary;
-    public function __construct(Invoice $invoice, string $client_email, string $pdfBinary)
+    public $senderEmail;
+    public function __construct(Invoice $invoice, string $client_email, string $pdfBinary, string $senderEmail)
     {
         $this->invoice = $invoice;
         $this->client_email = $client_email;
         $this->pdfBinary = $pdfBinary;
+        $this->senderEmail = $senderEmail;
     }
 
     /**
